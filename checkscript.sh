@@ -52,10 +52,24 @@ check_disk_space() {
 }
 
 
+# Function to get CPU information
+get_cpu_info() {    
+    echo "                      \033[33;5;7mGet CPU Core and Thread \033[0m  "
+    echo "---------------------------------------------------------------------"   
+    echo "Cores: $(sysctl -n hw.physicalcpu)                    hreads: $(sysctl -n hw.logicalcpu)            CPU Model:  $(sysctl -n machdep.cpu.brand_string) "     
+}
 
+# Function get Memory info
+get_memory_info() {
+    echo "                     \033[33;5;7mCGet memory Information \033[0m  "
+    echo "---------------------------------------------------------------------"
 
+    memory=$(vm_stat | grep "Pages free:" | awk '{print $3}' | sed 's/\.//')
+    total_memory=$(sysctl -n hw.memsize)
 
-
+    echo "Total Memory: $(($total_memory / 1024 / 1024 / 1024)) GB                    Free Memory: $(($memory * 4096 / 1024 / 1024 / 1024)) GB"
+    echo "---------------------------------------------------------------------"
+}
 
 
 echo "---------------------------------------------------------------------"
@@ -68,6 +82,13 @@ echo "---------------------------------------------------------------------"
 check_system_info
 echo "---------------------------------------------------------------------"
 check_disk_space
+
+
+## Get CPU Core and Thread Info
+get_cpu_info
+echo "---------------------------------------------------------------------"
+## Get Memory Info
+get_memory_info
 
 ###Top 5 CPU usage processess
 echo "                          \033[33;5;7mTop 5 CPU usage \033[0m  "
