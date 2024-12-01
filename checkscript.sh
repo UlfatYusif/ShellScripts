@@ -61,7 +61,7 @@ get_cpu_info() {
 
 # Function get Memory info
 get_memory_info() {
-    echo "                     \033[33;5;7mCGet memory Information \033[0m  "
+    echo "                     \033[33;5;7mGet memory Information \033[0m  "
     echo "---------------------------------------------------------------------"
 
     memory=$(vm_stat | grep "Pages free:" | awk '{print $3}' | sed 's/\.//')
@@ -74,16 +74,17 @@ get_memory_info() {
 
 # Function to get network information
 get_network_info() {
-  echo "Active Interfaces:"
+  echo "                     \033[33;5;7mActive Network Interfaces \033[0m  "
+  echo "---------------------------------------------------------------------"
   networksetup -listallhardwareports | grep "Device" | awk '{print $2}' | while read interface; do
-    ifconfig "$interface" | grep "inet " | awk '{print "Interface: " interface ", IP Address: " $2}'
+    ifconfig "$interface" | grep "inet " | awk '{print "                             IP Address: " $2}'
   done
   echo
 }
 
 
 echo "---------------------------------------------------------------------"
-echo "                            \033[33;5;7mCurrent date \033[0m  [$(current_date)] "
+echo "               \033[33;5;7mCurrent date \033[0m  [$(current_date)] "
 echo "---------------------------------------------------------------------"
 echo "                           \033[33;5;7mmacOS Version:\033[0m $(sw_vers -productVersion) "
 echo "---------------------------------------------------------------------"
@@ -103,10 +104,10 @@ get_memory_info
 
 
 
-echo "---------------------------------------------------------------------"
-## Get Memory Info
-get_network_info
 
+## Get Network Info
+get_network_info
+echo "---------------------------------------------------------------------"
 
 
 ###Top 5 CPU usage processess
