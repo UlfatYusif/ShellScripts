@@ -59,9 +59,7 @@ get_cpu_info() {
     echo "Cores: $(sysctl -n hw.physicalcpu)                    hreads: $(sysctl -n hw.logicalcpu)            CPU Model:  $(sysctl -n machdep.cpu.brand_string) "     
 }
 
-
 # Function get Memory info
-
 get_memory_info() {
     echo "                     \033[33;5;7mCGet memory Information \033[0m  "
     echo "---------------------------------------------------------------------"
