@@ -72,6 +72,16 @@ get_memory_info() {
 }
 
 
+# Function to get network information
+get_network_info() {
+  echo "Active Interfaces:"
+  networksetup -listallhardwareports | grep "Device" | awk '{print $2}' | while read interface; do
+    ifconfig "$interface" | grep "inet " | awk '{print "Interface: " interface ", IP Address: " $2}'
+  done
+  echo
+}
+
+
 echo "---------------------------------------------------------------------"
 echo "                            \033[33;5;7mCurrent date \033[0m  [$(current_date)] "
 echo "---------------------------------------------------------------------"
@@ -89,6 +99,15 @@ get_cpu_info
 echo "---------------------------------------------------------------------"
 ## Get Memory Info
 get_memory_info
+
+
+
+
+echo "---------------------------------------------------------------------"
+## Get Memory Info
+get_network_info
+
+
 
 ###Top 5 CPU usage processess
 echo "                          \033[33;5;7mTop 5 CPU usage \033[0m  "
